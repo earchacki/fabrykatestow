@@ -26,7 +26,6 @@ while True:
     if choice in ('1', '2', '3', '4'):
         num1 = float(input("Podaj pierwszą liczbę: "))
         num2 = float(input("Podaj drugą liczbę: "))
-        # print(add(num1, num2))
 
         if choice == '1':
             result = add(num1, num2)
