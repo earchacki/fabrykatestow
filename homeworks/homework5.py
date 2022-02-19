@@ -12,11 +12,11 @@ def GetResponse(url, parameters):
         response = requests.get(url, params = parameters)
         # zamieniamy responsa (który jest stringiem) w słownik
         data = response.json()
+        #print(response.text)
         return response, data
 
-    except NameError:
-        data = 'Błąd pozyskania danych'
-        return response, data
+    except:
+        print('Błąd z połączeniem')
 
 def DateTimeMeasure(response, data):
     try:
@@ -28,31 +28,35 @@ def DateTimeMeasure(response, data):
         # requestDate = str((datetime.fromtimestamp(data['timestamp'])))
         return requestTime, requestDateAndHour
 
-    except NameError:
-        print('Brak danych z responsa')
+    except:
+        print('Błąd danych z responsa')
 
 def PrintAndWriteRates(url, parameters):
-    # pobieramy responsa oraz dane z niego
-    response, data = GetResponse(url, parameters)
-    # pobieramy czas zapytania i datę zapytania
-    requestTime, requestDateAndHour = DateTimeMeasure(response, data)
-    # pobieramy kurs
-    quotes = str((data['quotes']['USDPLN']))
+    try:
+        # pobieramy responsa oraz dane z niego
+        response, data = GetResponse(url, parameters)
+        # pobieramy czas zapytania i datę zapytania
+        requestTime, requestDateAndHour = DateTimeMeasure(response, data)
+        # pobieramy kurs
+        quotes = str((data['quotes']['USDPLN']))
 
-    print('========================================================')
-    print('Kurs dolara: ' + quotes)
-    print('Data i godzina: ' + requestTime)
-    print('Czas wykonania zapytania: ' + requestDateAndHour)
+        print('========================================================')
+        print('Kurs dolara: ' + quotes)
+        print('Data i godzina: ' + requestTime)
+        print('Czas wykonania zapytania: ' + requestDateAndHour)
 
-    # otwieramy, gdy brak to tworzymy plik, a następnie dopisujemy ostatnią linię
-    file = open('C:/Temp/currency.csv', 'a+')
-    file.write(str(quotes) + ',' + str(requestTime) + ',' + str(requestDateAndHour) + '\n')
-    file.close()
+        # otwieramy, gdy brak to tworzymy plik, a następnie dopisujemy ostatnią linię
+        file = open('C:/Temp/currency.csv', 'a+')
+        file.write(str(quotes) + ',' + str(requestTime) + ',' + str(requestDateAndHour) + '\n')
+        file.close()
 
-while x < 2:
+    except:
+        print('Błąd podczas wydruku lub zapisu danych')
+
+while x < 5:
     PrintAndWriteRates(url, parameters)
     x += 1
-    time.sleep(3)
+    time.sleep(1)
 
 
 #print(response.url)
