@@ -4,7 +4,6 @@ import time
 
 url = 'http://api.currencylayer.com/live'
 parameters = {'access_key':'23334123d578c86369a91e2ed47c1d38', 'source':'USD', 'currencies':'PLN'}
-x = 0
 
 def GetResponse(url, parameters):
     try:
@@ -18,14 +17,12 @@ def GetResponse(url, parameters):
     except:
         print('Błąd z połączeniem')
 
-def DateTimeMeasure(response, data):
+def DateTimeMeasure(response):
     try:
         # pobranie czasu wykonania zapytania, przeliczenie na milisekundy oraz zaokrąglenie
         requestTime = str((round((response.elapsed.total_seconds() * 1000))))
         # godzina wykonania zapytania
         requestDateAndHour = str(datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
-        # NIEPOTRZEBNE! pobranie timestapm kursu z responsa i sformatowanie go do daty
-        # requestDate = str((datetime.fromtimestamp(data['timestamp'])))
         return requestTime, requestDateAndHour
 
     except:
@@ -36,7 +33,7 @@ def PrintAndWriteRates(url, parameters):
         # pobieramy responsa oraz dane z niego
         response, data = GetResponse(url, parameters)
         # pobieramy czas zapytania i datę zapytania
-        requestTime, requestDateAndHour = DateTimeMeasure(response, data)
+        requestTime, requestDateAndHour = DateTimeMeasure(response)
         # pobieramy kurs
         quotes = str((data['quotes']['USDPLN']))
 
@@ -45,7 +42,7 @@ def PrintAndWriteRates(url, parameters):
         print('Data i godzina: ' + requestTime)
         print('Czas wykonania zapytania: ' + requestDateAndHour)
 
-        # otwieramy, gdy brak to tworzymy plik, a następnie dopisujemy ostatnią linię
+        # otwieramy plik, gdy brak to tworzymy plik, a następnie dopisujemy ostatnią linię
         file = open('C:/Temp/currency.csv', 'a+')
         file.write(str(quotes) + ',' + str(requestTime) + ',' + str(requestDateAndHour) + '\n')
         file.close()
@@ -53,14 +50,6 @@ def PrintAndWriteRates(url, parameters):
     except:
         print('Błąd podczas wydruku lub zapisu danych')
 
-while x < 5:
+while True:
     PrintAndWriteRates(url, parameters)
-    x += 1
-    time.sleep(1)
-
-
-#print(response.url)
-#print(response.text)
-# print(quotes)
-# print(requestTime)
-# print(requestDate)
+    time.sleep(15)
