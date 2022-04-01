@@ -2,8 +2,9 @@ import unittest
 from selenium import webdriver
 from config.test_settings import TestSettings
 from tests.page_objects import main_page, checkboxes_page,hovers_page, users_page, inputs_page, dropdown_page, add_remove_page
-from tests.page_objects import date_picker
+from tests.page_objects import date_picker, basic_auth, form, key_presses, drag_and_drop, status_code, IFrame
 from time import sleep
+
 
 class Tests(unittest.TestCase):
     def setUp(self):
@@ -66,9 +67,68 @@ class Tests(unittest.TestCase):
 
     def test11_date_picker_input_incorrect_date(self):
         date_picker.click_date_picker(self.driver)
-        self.assertTrue((date_picker.date_picker_visible(self.driver)))
+        self.assertTrue(date_picker.date_picker_visible(self.driver))
         self.assertTrue(date_picker.input_incorrect_date(self.driver))
         sleep(1)
+
+    def test12_basic_auth_correct(self):
+        basic_auth.click_basic_auth_tab(self.driver)
+        self.assertTrue(basic_auth.basic_auth_visible(self.driver))
+        self.assertTrue(basic_auth.login_correct(self.driver))
+        sleep(2)
+
+    def test13_basic_auth_incorrect_login(self):
+        basic_auth.click_basic_auth_tab(self.driver)
+        self.assertTrue(basic_auth.basic_auth_visible(self.driver))
+        self.assertTrue(basic_auth.login_incorrect_login(self.driver))
+        sleep(2)
+
+    def test14_basic_auth_incorrect_password(self):
+        basic_auth.click_basic_auth_tab(self.driver)
+        self.assertTrue(basic_auth.basic_auth_visible(self.driver))
+        self.assertTrue(basic_auth.login_incorect_password(self.driver))
+        sleep(2)
+
+    def test15_form_submit_correct(self):
+        form.click_form_tab(self.driver)
+        self.assertTrue(form.form_tab_content(self.driver))
+        self.assertTrue(form.form_tab_submit_correct(self.driver))
+        sleep(2)
+
+    def test17_key_presses_check(self):
+        key_presses.click_key_presses(self.driver)
+        self.assertTrue(key_presses.key_presses_visible(self.driver))
+        self.assertTrue(key_presses.key_presses_input_value(self.driver))
+
+    def test18_drag_and_drop_check(self):
+        drag_and_drop.click_drag_and_drop(self.driver)
+        self.assertTrue(drag_and_drop.drag_and_drop_visible(self.driver))
+        drag_and_drop.drag_and_drop_correct(self.driver)
+
+    def test19_status_code_200(self):
+        status_code.click_status_code(self.driver)
+        self.assertTrue(status_code.status_code_visible(self.driver))
+        self.assertTrue(status_code.status_code_200_check(self.driver))
+
+    def test20_status_code_305(self):
+        status_code.click_status_code(self.driver)
+        self.assertTrue(status_code.status_code_visible(self.driver))
+        self.assertTrue(status_code.status_code_305_check(self.driver))
+
+    def test21_status_code_404(self):
+        status_code.click_status_code(self.driver)
+        self.assertTrue(status_code.status_code_visible(self.driver))
+        self.assertTrue(status_code.status_code_404_check(self.driver))
+
+    def test22_status_code_500(self):
+        status_code.click_status_code(self.driver)
+        self.assertTrue(status_code.status_code_visible(self.driver))
+        self.assertTrue(status_code.status_code_500_check(self.driver))
+
+    def test23_IFrame_button_1(self):
+        IFrame.click_iframe(self.driver)
+        self.assertTrue(IFrame.iframe_visible(self.driver))
+        self.assertTrue(IFrame.iframe_press_button_1(self.driver))
 
 
 if __name__ == '__main__':
