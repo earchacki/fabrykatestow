@@ -92,13 +92,13 @@ class Tests(unittest.TestCase):
     def test15_form_submit_correct(self):
         form.click_form_tab(self.driver)
         self.assertTrue(form.form_tab_visible(self.driver))
-        self.assertTrue(form.form_tab_submit_correct(self.driver))
+        self.assertTrue(form.form_submit_correct(self.driver))
         sleep(2)
 
     def test16_form_submit_incorrect(self):
         form.click_form_tab(self.driver)
         self.assertTrue(form.form_tab_visible(self.driver))
-        self.assertTrue(form.form_tab_submit_incorrect(self.driver))
+        self.assertTrue(form.form_submit_incorrect(self.driver))
 
     def test17_key_presses_check(self):
         key_presses.click_key_presses(self.driver)

@@ -15,6 +15,7 @@ def dropdown_content_visible(driver_instance):
     elem = wait_for_visibility_of_element(driver_instance, By.ID, dropdown_content)
     return elem.is_displayed()
 
+
 def get_first_dropdown_value(driver_instance):
     elem_list = Select(driver_instance.find_element(By.ID, dropdown_list))
     wait_for_visibility_of_element(driver_instance, By.ID, dropdown_list)
