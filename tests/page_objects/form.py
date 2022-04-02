@@ -15,11 +15,11 @@ def click_form_tab(driver_instance):
 
 
 def form_tab_visible(driver_instance):
-    elem = wait_for_visibility_of_element(driver_instance, By.ID, form_content)
+    elem = wait_for_visibility_of_element(driver_instance, By.ID, button_submit)
     return elem.is_displayed()
 
 
-def form_tab_submit_correct(driver_instance):
+def form_submit_correct(driver_instance):
     first_name = 'Roman'
     last_name = 'Romanowski'
     elem = driver_instance.find_element(By.ID, input_first_name)
@@ -38,9 +38,8 @@ def form_tab_submit_correct(driver_instance):
         return False
 
 
-def form_tab_submit_incorrect(driver_instance):
+def form_submit_incorrect(driver_instance):
     elem = driver_instance.find_element(By.ID, button_submit)
-    sleep(1)
     elem.click()
     sleep(1)
     message = driver_instance.switch_to.active_element.get_attribute('text')
