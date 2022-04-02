@@ -1,6 +1,7 @@
 from tests.helpers.support_functions import *
 from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
+import os
 
 drag_and_drop_tab = 'draganddrop-header'
 drag_and_drop_content = 'draganddrop-content'
@@ -21,11 +22,20 @@ def drag_and_drop_visible(driver_instance):
 
 
 def drag_and_drop_correct(driver_instance):
-    elem = driver_instance.find_element(By.ID, column_a)
-    elem1 = driver_instance.find_element(By.ID, column_b)
-    action = ActionChains(driver_instance)
-    #action.drag_and_drop_by_offset(elem, 100, 100).perform()
-    #action.drag_and_drop(elem, elem1).perform()
-    action.click_and_hold(elem).move_by_offset(200, 10).pause(2).release().perform()
-    sleep(2)
+    base_path = os.path.abspath('page_test.py')
+    helpers_dir_path = base_path.replace('tests_run\page_test.py', 'helpers\drag_and_drop_helper.js')
+    with open(helpers_dir_path, 'r') as js_file:
+        line = js_file.readline()
+        script = ''
+        while line:
+            script += line
+            line = js_file.readline()
+
+    driver_instance.execute_script(script + "jQuery('#column-a').simulateDragDrop({ dropTarget: '#column-b'});")
+    elem = driver_instance.find_element(By.XPATH, header_a)
+    elem1 = driver_instance.find_element(By.XPATH, header_b)
+    if elem.text == 'B' and elem1.text == 'A':
+        return True
+    else:
+        return False
 

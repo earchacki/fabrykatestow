@@ -16,7 +16,7 @@ def input_content_visible(driver_instance):
 
 
 def send_correct_keys_to_input(driver_instance):
-    wait_for_visibility_of_element(driver_instance, By.XPATH, input, time_to_wait=1)
+    wait_for_visibility_of_element(driver_instance, By.XPATH, input)
     elem = driver_instance.find_element(By.XPATH, input)
     elem.send_keys('123456')
     value = 123456

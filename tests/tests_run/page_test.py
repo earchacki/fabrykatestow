@@ -91,9 +91,14 @@ class Tests(unittest.TestCase):
 
     def test15_form_submit_correct(self):
         form.click_form_tab(self.driver)
-        self.assertTrue(form.form_tab_content(self.driver))
+        self.assertTrue(form.form_tab_visible(self.driver))
         self.assertTrue(form.form_tab_submit_correct(self.driver))
         sleep(2)
+
+    def test16_form_submit_incorrect(self):
+        form.click_form_tab(self.driver)
+        self.assertTrue(form.form_tab_visible(self.driver))
+        self.assertTrue(form.form_tab_submit_incorrect(self.driver))
 
     def test17_key_presses_check(self):
         key_presses.click_key_presses(self.driver)
@@ -103,7 +108,7 @@ class Tests(unittest.TestCase):
     def test18_drag_and_drop_check(self):
         drag_and_drop.click_drag_and_drop(self.driver)
         self.assertTrue(drag_and_drop.drag_and_drop_visible(self.driver))
-        drag_and_drop.drag_and_drop_correct(self.driver)
+        self.assertTrue(drag_and_drop.drag_and_drop_correct(self.driver))
 
     def test19_status_code_200(self):
         status_code.click_status_code(self.driver)

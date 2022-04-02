@@ -15,7 +15,7 @@ def click_hovers_tab(driver_instance):
 
 
 def hover_content_displayed(driver_instance):
-    elem = wait_for_visibility_of_element(driver_instance, By.ID, hovers_content)
+    elem = wait_for_visibility_of_element(driver_instance, By.XPATH, gentleman_pic)
     return elem.is_displayed()
 
 

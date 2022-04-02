@@ -21,9 +21,7 @@ def key_presses_visible(driver_instance):
 def key_presses_input_value(driver_instance):
     elem = driver_instance.find_element(By.ID, key_presses_input)
     elem.send_keys(Keys.ENTER)
-    sleep(2)
     elem1 = driver_instance.find_element(By.ID, key_presses_value)
-    print(elem1.text)
     if elem1.text == 'You entered: ENTER':
         return True
     else:

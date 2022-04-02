@@ -1,9 +1,7 @@
 from tests.helpers.support_functions import *
-from time import sleep
 from tests.page_objects import status_code_pages
 
 status_code_tab = 'statuscodes-header'
-# status_code_content = 'statuscodes-content'
 status_200 = '200siteAnchor'
 status_305 = '305siteAnchor'
 status_404 = '404siteAnchor'
